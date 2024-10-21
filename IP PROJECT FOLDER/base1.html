@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFONEWS</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto:wght@500&display=swap">
+
+    <!-- FONT AWESOME ICONS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .active-nav {
+            color: #208c5b !important;
+            font-weight: bold;
+        }
+
+        .search-bar input {
+            border-radius: 50px;
+            padding: 0.75rem;
+            width: 300px;
+        }
+
+        .search-bar button {
+            border-radius: 50px;
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        footer {
+                background-color: #484e52;
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+            }
+    
+            .footer-link {
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+            }
+    
+            .footer-link:hover {
+                text-decoration: underline;
+            }
+        /* Style to make the hamburger button visible */
+        .navbar-toggler {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <span class="navbar-brand">INFONEWS</span>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        <li><a class="dropdown-item" id="finance" href="#" onclick="onNavItemClick('finance')">Finance</a></li>
+                        <li><a class="dropdown-item" id="sports" href="#" onclick="onNavItemClick('sports')">Sports</a></li>
+                        <li><a class="dropdown-item" id="crypto" href="#" onclick="onNavItemClick('crypto')">Crypto</a></li>
+                        <li><a class="dropdown-item" id="international" href="#" onclick="onNavItemClick('international')">International</a></li>
+                        <li><a class="dropdown-item" id="technical" href="#" onclick="onNavItemClick('technical')">Technical</a></li>
+                        <li><a class="dropdown-item" id="AI" href="#" onclick="onNavItemClick('AI')">AI</a></li>
+                        <li><a class="dropdown-item" id="education" href="#" onclick="onNavItemClick('education')">Education</a></li>
+                        <li><a class="dropdown-item" id="Earth" href="#" onclick="onNavItemClick('Earth')">Earth</a></li>
+                        <li><a class="dropdown-item" id="Weather" href="#" onclick="onNavItemClick('Weather')">Weather</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html" onclick="curSelectedNav?.classList.remove('active');">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html" onclick="curSelectedNav?.classList.remove('active');">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html" onclick="curSelectedNav?.classList.remove('active');">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="support.html" onclick="curSelectedNav?.classList.remove('active');">Support</a>
+                </li>
+            </ul>
+
+            <div class="search-bar d-flex ms-3">
+                <input type="text" class="form-control me-2" id="search-text" placeholder="Search news...">
+                <button class="btn btn-success" id="search-button">Search</button>
+            </div>
+
+            <!-- SIGN IN AND SIGN UP BUTTON -->
+            <div class="d-ms-3"></div>
+            <a href="lgin.html" class="btn btn-outline-light btn-sign me-2">Sign In</a>
+            <a href="signup.html" class="btn btn-outline-info btn-sign">Sign-Up</a>
+        </div>
+    </div>
+</nav>
+
+
+
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <div class="row" id="cards-container">
+            <!-- Cards will be dynamically injected here -->
+        </div>
+    </main>
+
+    <!-- Template for News Card -->
+    <template id="template-news-card">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/400x200" alt="news-image" class="card-img-top" id="news-img">
+                <div class="card-body">
+                    <h5 class="card-title" id="news-title">News Title</h5>
+                    <p class="text-muted small" id="news-source">Source · Date</p>
+                    <p class="card-text" id="news-desc">Short description of the news goes here. It should be engaging and concise.</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+             <!-- Footer -->
+<footer>
+    <p>&copy; 2024 INFONEWS | 
+        <a href="#" class="footer-link">Privacy Policy</a> | 
+        <a href="#" class="footer-link">Terms of Service</a>
+    </p>
+    <div class="social-links mt-3">
+        <p>Follow BBC on:</p>
+        <a href="https://www.instagram.com/bbc" target="_blank" class="footer-link me-3">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://www.facebook.com/bbcnews" target="_blank" class="footer-link me-3">
+            <i class="fab fa-facebook-f"></i> Facebook
+        </a>
+        <a href="https://twitter.com/BBCWorld" target="_blank" class="footer-link me-3">
+            <i class="fab fa-twitter"></i> Twitter
+        </a>
+        <a href="https://www.linkedin.com/company/bbc-worldwide" target="_blank" class="footer-link">
+            <i class="fab fa-linkedin-in"></i> LinkedIn
+        </a>
+    </div>
+</footer>
+
+    <!-- Bootstrap 5 JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+        const API_KEY = "59bae22becca440b913af88855d9bef1";
+        const url = "https://newsapi.org/v2/everything?q=";
+
+        window.addEventListener("load", () => fetchNews("India"));
+
+        async function fetchNews(query) {
+            const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
+            const data = await res.json();
+            bindData(data.articles);
+        }
+
+        function bindData(articles) {
+            const cardsContainer = document.getElementById("cards-container");
+            const newsCardTemplate = document.getElementById("template-news-card");
+
+            cardsContainer.innerHTML = "";
+
+            articles.forEach((article) => {
+                if (!article.urlToImage) return;
+
+                const cardClone = newsCardTemplate.content.cloneNode(true);
+                fillDataInCard(cardClone, article);
+                cardsContainer.appendChild(cardClone);
+            });
+        }
+
+        function fillDataInCard(cardClone, article) {
+            const newsImg = cardClone.querySelector("#news-img");
+            const newsTitle = cardClone.querySelector("#news-title");
+            const newsSource = cardClone.querySelector("#news-source");
+            const newsDesc = cardClone.querySelector("#news-desc");
+
+            newsImg.src = article.urlToImage;
+            newsTitle.innerHTML = article.title;
+            newsDesc.innerHTML = article.description;
+
+            const date = new Date(article.publishedAt).toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+
+            newsSource.innerHTML = `${article.source.name} · ${date}`;
+
+            cardClone.querySelector(".card").addEventListener("click", () => {
+                window.open(article.url, "_blank");
+            });
+        }
+
+        let curSelectedNav = null;
+        function onNavItemClick(id) {
+            fetchNews(id);
+            const navItem = document.getElementById(id);
+            curSelectedNav?.classList.remove("active");
+            curSelectedNav = navItem;
+            curSelectedNav.classList.add("active");
+        }
+
+        const searchButton = document.getElementById("search-button");
+        searchButton.addEventListener("click", () => {
+            const query = document.getElementById("search-text").value;
+            if (!query) return;
+            fetchNews(query);
+            curSelectedNav?.classList.remove("active");
+            curSelectedNav = null;
+        });
+    </script>
+</body>
+</html>
